@@ -1,11 +1,8 @@
-using System.Xml.Linq;
 using System;
-using System.Reflection;
 using Xunit;
-using Xunit.Sdk;
-using Xunit.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ExpectedObjects;
+using Application.Domain.Tests._Util;
 
 namespace Application.Domain.Tests
 {
@@ -94,13 +91,12 @@ namespace Application.Domain.Tests
                 Valor = (double)90
             };
 
-            var message = Assert.ThrowsException<ArgumentException>(() =>
+            Assert.ThrowsException<ArgumentException>(() =>
                     new Curso(nomeInvalido,
                                     cursoEsperado.CargaHoraria,
                                     cursoEsperado.PublicoAlvo,
                                     cursoEsperado.Valor
-                              )).Message;
-            Assert.AreEqual("Nome Invalido", message);
+                              )).ComMensagem("Nome Invalido");
         }
 
         [Theory]
@@ -117,13 +113,12 @@ namespace Application.Domain.Tests
                 Valor = (double)90
             };
 
-            var message = Assert.ThrowsException<ArgumentException>(() =>
+            Assert.ThrowsException<ArgumentException>(() =>
                 new Curso(cursoEsperado.Nome,
                                 cargaHoraria,
                                 cursoEsperado.PublicoAlvo,
                                 cursoEsperado.Valor
-                          )).Message;
-            Assert.AreEqual("Carga horária inválida", message);
+                          )).ComMensagem("Carga horária inválida");
         }
 
         [Theory]
@@ -140,13 +135,12 @@ namespace Application.Domain.Tests
                 Valor = (double)90
             };
 
-            var message = Assert.ThrowsException<ArgumentException>(() =>
+            Assert.ThrowsException<ArgumentException>(() =>
                 new Curso(cursoEsperado.Nome,
                                 cursoEsperado.CargaHoraria,
                                 cursoEsperado.PublicoAlvo,
                                 valorInvalido
-                          )).Message;
-            Assert.AreEqual("Valor do curso inválido", message);
+                          )).ComMensagem("Valor do curso inválido");
         }
     }
 
@@ -156,14 +150,6 @@ namespace Application.Domain.Tests
         Universitário,
         Empregado,
         Empreendedor
-    }
-
-    public enum NomeCurso
-    {
-        Informática,
-        Manutenção,
-        Musica,
-        Adm
     }
 
     public class Curso
