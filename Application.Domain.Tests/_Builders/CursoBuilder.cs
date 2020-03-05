@@ -18,11 +18,13 @@ namespace Application.Domain.Tests._Builders
             return new CursoBuilder();
         }
 
-        public CursoBuilder ComNome(string nome) { 
+        public CursoBuilder ComNome(string nome)
+        {
             _nome = nome;
             return this;
         }
-        public CursoBuilder ComDescricao(string descricao) { 
+        public CursoBuilder ComDescricao(string descricao)
+        {
             _descricao = descricao;
             return this;
         }
@@ -42,9 +44,9 @@ namespace Application.Domain.Tests._Builders
             return this;
         }
 
-        public Curso Build()
+        public CursoObj Build()
         {
-            return new Curso(_nome, _descricao, _cargaHoraria, _publicoAlvo, _valor);
+            return new CursoObj(_nome, _descricao, _cargaHoraria, _publicoAlvo, _valor);
         }
     }
 }
