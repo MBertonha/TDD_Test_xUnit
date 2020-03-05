@@ -4,6 +4,8 @@ using Xunit;
 using Moq;
 using Application.Domain.Enum;
 using Bogus;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Application.Domain.Tests._Util;
 
 namespace Application.Domain.Tests.Curso
 {
@@ -21,7 +23,7 @@ namespace Application.Domain.Tests.Curso
                 Nome = fake.Random.Words(),
                 Descricao = fake.Lorem.Paragraph(),
                 CargaHoraria = fake.Random.Double(50, 1000),
-                PublicoAlvoId = 1,
+                PublicoAlvo = "Estudante",
                 Valor = fake.Random.Double(1000, 2000)
             };
 
@@ -44,6 +46,16 @@ namespace Application.Domain.Tests.Curso
             );
         }
 
+        [Fact]
+        public void NaoDevePublicoAlvoVazio()
+        {
+            var publicoAlvoInvalido = "Medico";
+            _cursoDto.PublicoAlvo = publicoAlvoInvalido;
+
+            Assert.ThrowsException<ArgumentException>(() => _armazenadorDeCurso.Armazenar(_cursoDto))
+                .ComMensagem("Publico Alvo Invalido");
+        }
+
         public interface ICursoRepositorio
         {
             void Adicionar(CursoObj curso);
@@ -59,11 +71,18 @@ namespace Application.Domain.Tests.Curso
 
             public void Armazenar(CursoDto cursoDto)
             {
+                Enum.TryParse(typeof(PublicoAlvo), cursoDto.PublicoAlvo, out var publicoAlvo);
+
+                if (publicoAlvo == null)
+                {
+                    throw new ArgumentException("Publico Alvo Inválido");
+                }
+
                 var curso =
                     new CursoObj(cursoDto.Nome,
                                     cursoDto.Descricao,
                                     cursoDto.CargaHoraria,
-                                    PublicoAlvo.Estudante,
+                                    (PublicoAlvo)publicoAlvo,
                                     cursoDto.Valor
                                 );
                 _cursoRepositorio.Adicionar(curso);
@@ -75,7 +94,7 @@ namespace Application.Domain.Tests.Curso
             public string Nome { get; set; }
             public string Descricao { get; set; }
             public double CargaHoraria { get; set; }
-            public int PublicoAlvoId { get; set; }
+            public string PublicoAlvo { get; set; }
             public double Valor { get; set; }
         }
     }
