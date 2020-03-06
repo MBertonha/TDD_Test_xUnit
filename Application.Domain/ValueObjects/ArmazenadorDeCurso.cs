@@ -1,5 +1,4 @@
 using System;
-using Application.Domain.Tests;
 
 namespace Application.Domain.ValueObjects
 {
