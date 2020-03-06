@@ -1,9 +1,10 @@
 ﻿using System;
+using Application.Domain._Base;
 using Application.Domain.Enum;
 
-namespace Application.Domain.Tests
+namespace Application.Domain
 {
-    public class CursoObj
+    public class CursoObj : Entidade
     {
         public CursoObj(string nome, string descricao, double cargaHoraria, PublicoAlvo publicoAlvo, double valor)
         {
