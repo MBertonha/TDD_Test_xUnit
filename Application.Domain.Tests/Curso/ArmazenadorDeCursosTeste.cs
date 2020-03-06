@@ -2,10 +2,10 @@ using System.Xml;
 using System;
 using Xunit;
 using Moq;
-using Application.Domain.Enum;
 using Bogus;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Application.Domain.Tests._Util;
+using Application.Domain.Tests._Builders;
 
 namespace Application.Domain.Tests.Curso
 {
@@ -56,9 +56,20 @@ namespace Application.Domain.Tests.Curso
                 .ComMensagem("Publico Alvo Invalido");
         }
 
+        [Fact]
+        public void NaoDeveAdicionarCursoComNomeIgualAOutroSalvo()
+        {
+            var cursoJaSalvo = CursoBuilder.Novo().ComNome(_cursoDto.Nome).Build();
+            _cursoRepositorioMock.Setup(r => r.ObterPeloNome(_cursoDto.Nome)).Returns(cursoJaSalvo);
+
+            Assert.ThrowsException<ArgumentException>(() => _armazenadorDeCurso.Armazenar(_cursoDto))
+                .ComMensagem("Nome do curso existente");
+        }
+
         public interface ICursoRepositorio
         {
             void Adicionar(CursoObj curso);
+            CursoObj ObterPeloNome(string nome);
         }
 
         public class ArmazenadorDeCurso
@@ -71,18 +82,25 @@ namespace Application.Domain.Tests.Curso
 
             public void Armazenar(CursoDto cursoDto)
             {
-                Enum.TryParse(typeof(PublicoAlvo), cursoDto.PublicoAlvo, out var publicoAlvo);
+                var cursoJaSalvo = _cursoRepositorio.ObterPeloNome(cursoDto.Nome);
+
+                if (cursoJaSalvo != null)
+                {
+                    throw new ArgumentException("Nome do curso existente");
+                }
+
+                System.Enum.TryParse(typeof(Application.Domain.Enum.PublicoAlvo), cursoDto.PublicoAlvo, out var publicoAlvo);
 
                 if (publicoAlvo == null)
                 {
-                    throw new ArgumentException("Publico Alvo Inválido");
+                    throw new ArgumentException("Publico Alvo Invalido");
                 }
 
                 var curso =
                     new CursoObj(cursoDto.Nome,
                                     cursoDto.Descricao,
                                     cursoDto.CargaHoraria,
-                                    (PublicoAlvo)publicoAlvo,
+                                    (Application.Domain.Enum.PublicoAlvo)publicoAlvo,
                                     cursoDto.Valor
                                 );
                 _cursoRepositorio.Adicionar(curso);
