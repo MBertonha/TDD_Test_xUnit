@@ -2,6 +2,7 @@
 using Application.Domain.Alunos;
 using Application.Domain.PublicosAlvo;
 using Application.Domain.Tests._Builders;
+using Application.Domain.Tests._Util;
 using Bogus;
 using Bogus.Extensions.Brazil;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

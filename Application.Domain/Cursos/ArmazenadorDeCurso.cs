@@ -25,8 +25,12 @@ namespace Application.Domain.Cursos
 
             var publicoAlvo = _conversorDePublicoAlvo.Converter(cursoDto.PublicoAlvo);
 
-            var curso =
-                new CursoObj(cursoDto.Nome, cursoDto.Descricao, cursoDto.CargaHoraria, publicoAlvo, cursoDto.Valor);
+            var curso = new CursoObj(cursoDto.Nome, 
+                                cursoDto.Descricao, 
+                                cursoDto.CargaHoraria, 
+                                publicoAlvo, 
+                                cursoDto.Valor
+                             );
 
             if (cursoDto.Id > 0)
             {

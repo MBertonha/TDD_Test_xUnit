@@ -6,24 +6,21 @@ namespace Application.Domain
 {
     public class CursoObj : Entidade
     {
+        public string Nome { get; private set; }
+        public string Descricao { get; private set; }
+        public double CargaHoraria { get; private set; }
+        public PublicoAlvo PublicoAlvo { get; private set; }
+        public double Valor { get; private set; }
 
         private CursoObj() { }
 
         public CursoObj(string nome, string descricao, double cargaHoraria, PublicoAlvo publicoAlvo, double valor)
         {
-            //Validações
-            if (string.IsNullOrEmpty(nome))
-            {
-                throw new ArgumentException("Nome Invalido");
-            }
-            if (cargaHoraria < 1)
-            {
-                throw new ArgumentException("Carga horaria invalida");
-            }
-            if (valor < 1)
-            {
-                throw new ArgumentException("Valor do curso invalido");
-            }
+            ValidadorDeRegra.Novo()
+                .Quando(string.IsNullOrEmpty(nome), Resource.NomeInvalido)
+                .Quando(cargaHoraria < 1, Resource.CargaHorariaInvalida)
+                .Quando(valor < 1, Resource.ValorInvalido)
+                .DispararExcecaoSeExistir();
 
             Nome = nome;
             Descricao = descricao;
@@ -58,11 +55,5 @@ namespace Application.Domain
 
             Valor = valor;
         }
-
-        public string Nome { get; private set; }
-        public string Descricao { get; private set; }
-        public double CargaHoraria { get; private set; }
-        public PublicoAlvo PublicoAlvo { get; private set; }
-        public double Valor { get; private set; }
     }
 }

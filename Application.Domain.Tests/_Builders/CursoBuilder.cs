@@ -1,4 +1,4 @@
-﻿using Application.Domain.Enum;
+﻿using Application.Domain.PublicosAlvo;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -47,6 +47,11 @@ namespace Application.Domain.Tests._Builders
         public CursoObj Build()
         {
             return new CursoObj(_nome, _descricao, _cargaHoraria, _publicoAlvo, _valor);
+        }
+
+        public CursoBuilder ComId(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

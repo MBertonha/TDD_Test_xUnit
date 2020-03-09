@@ -2,6 +2,7 @@
 using Application.Domain.Alunos;
 using Application.Domain.PublicosAlvo;
 using Application.Domain.Tests._Builders;
+using Application.Domain.Tests._Util;
 using Application.Domain.Tests.Cursos;
 using Bogus;
 using ExpectedObjects;
@@ -41,7 +42,7 @@ namespace Application.Domain.Matriculas
         [Fact]
         public void NaoDeveCriarMatriculaSemCurso()
         {
-            CursoTeste cursoInvalido = null;
+            CursoObj cursoInvalido = null;
 
             Assert.ThrowsException<ExcecaoDeDominio>(() =>
                     MatriculaBuilder.Novo().ComCurso(cursoInvalido).Build())
@@ -156,5 +157,4 @@ namespace Application.Domain.Matriculas
                 .ComMensagem(Resource.MatriculaConcluida);
         }
     }
-}
 }

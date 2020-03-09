@@ -19,7 +19,7 @@ namespace Application.Domain.Matriculas
         private readonly MatriculaDto _matriculaDto;
         private readonly Mock<IMatriculaRepositorio> _matriculaRepositorio;
         private readonly Aluno _aluno;
-        private readonly CursoTeste _curso;
+        private readonly CursoObj _curso;
 
         public CriacaoDaMatriculaTest()
         {
@@ -41,7 +41,7 @@ namespace Application.Domain.Matriculas
         [Fact]
         public void DeveNotificarQuandoCursoNaoForEncontrado()
         {
-            CursoTeste cursoInvalido = null;
+            CursoObj cursoInvalido = null;
             _cursoRepositorio.Setup(r => r.ObterPorId(_matriculaDto.CursoId)).Returns(cursoInvalido);
 
             Assert.ThrowsException<ExcecaoDeDominio>(() =>

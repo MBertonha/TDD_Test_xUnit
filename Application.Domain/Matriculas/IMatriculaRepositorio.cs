@@ -2,7 +2,7 @@
 
 namespace Application.Domain.Matriculas
 {
-    interface IMatriculaRepositorio : IRepositorio<Matricula>
+    public interface IMatriculaRepositorio : IRepositorio<Matricula>
     {
         Matricula ConclusaoDaMatricula(IMatriculaRepositorio matriculaRepositorio);
 

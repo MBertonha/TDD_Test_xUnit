@@ -24,9 +24,10 @@ namespace Application.Data.Repositorio
             var query = Context.Set<TEntidade>().Where(entidade => entidade.Id == id);
             return query.Any() ? query.First() : null;
         }
+
         public virtual List<TEntidade> Consultar()
         {
-            List<TEntidade> entidades = Context.Set<TEntidade>().ToList();
+            var entidades = Context.Set<TEntidade>().ToList();
             return entidades.Any() ? entidades : new List<TEntidade>();
         }
     }

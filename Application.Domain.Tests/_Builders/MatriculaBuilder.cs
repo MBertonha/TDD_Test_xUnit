@@ -1,4 +1,6 @@
-﻿using Application.Domain.PublicosAlvo;
+﻿using Application.Domain.Alunos;
+using Application.Domain.Matriculas;
+using Application.Domain.PublicosAlvo;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +10,7 @@ namespace Application.Domain.Tests._Builders
     public class MatriculaBuilder
     {
         protected Aluno Aluno;
-        protected Curso Curso;
+        protected CursoObj Curso;
         protected double ValorPago;
         protected bool Cancelada;
         protected bool Concluido;
@@ -31,7 +33,7 @@ namespace Application.Domain.Tests._Builders
             return this;
         }
 
-        public MatriculaBuilder ComCurso(Curso curso)
+        public MatriculaBuilder ComCurso(CursoObj curso)
         {
             Curso = curso;
             return this;

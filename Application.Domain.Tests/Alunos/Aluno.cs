@@ -7,6 +7,7 @@ using ExpectedObjects;
 using Xunit;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Application.Domain.Tests._Builders;
+using Application.Domain.Tests._Util;
 
 namespace Application.Domain.Tests.Alunos
 {
@@ -27,7 +28,7 @@ namespace Application.Domain.Tests.Alunos
                 Nome = _faker.Person.FullName,
                 _faker.Person.Email,
                 Cpf = _faker.Person.Cpf(),
-                PublicoAlvo = Domain.PublicosAlvo.Empreendedor
+                PublicoAlvo = PublicosAlvo.PublicoAlvo.Empreendedor
             };
 
             var aluno = new Aluno(alunoEsperado.Nome, alunoEsperado.Email, alunoEsperado.Cpf, alunoEsperado.PublicoAlvo);

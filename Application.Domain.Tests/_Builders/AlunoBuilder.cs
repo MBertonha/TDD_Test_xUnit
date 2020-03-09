@@ -1,4 +1,5 @@
-﻿using Application.Domain.PublicosAlvo;
+﻿using Application.Domain.Alunos;
+using Application.Domain.PublicosAlvo;
 using Bogus;
 using Bogus.Extensions.Brazil;
 using System;

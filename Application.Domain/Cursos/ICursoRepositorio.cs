@@ -5,6 +5,5 @@ namespace Application.Domain.Cursos
     public interface ICursoRepositorio : IRepositorio<CursoObj>
     {
         CursoObj ObterPeloNome(string nome);
-        void ObterPorId(object id);
     }
 }
