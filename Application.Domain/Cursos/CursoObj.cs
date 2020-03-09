@@ -1,11 +1,14 @@
 ﻿using System;
 using Application.Domain._Base;
-using Application.Domain.Enum;
+using Application.Domain.PublicosAlvo;
 
 namespace Application.Domain
 {
     public class CursoObj : Entidade
     {
+
+        private CursoObj() { }
+
         public CursoObj(string nome, string descricao, double cargaHoraria, PublicoAlvo publicoAlvo, double valor)
         {
             //Validações
@@ -26,6 +29,33 @@ namespace Application.Domain
             Descricao = descricao;
             CargaHoraria = cargaHoraria;
             PublicoAlvo = publicoAlvo;
+            Valor = valor;
+        }
+
+        public void AlterarNome(string nome)
+        {
+            ValidadorDeRegra.Novo()
+                .Quando(string.IsNullOrEmpty(nome), Resource.NomeInvalido)
+                .DispararExcecaoSeExistir();
+
+            Nome = nome;
+        }
+
+        public void AlterarCargaHoraria(double cargaHoraria)
+        {
+            ValidadorDeRegra.Novo()
+                .Quando(cargaHoraria < 1, Resource.CargaHorariaInvalida)
+                .DispararExcecaoSeExistir();
+
+            CargaHoraria = cargaHoraria;
+        }
+
+        public void AlterarValor(double valor)
+        {
+            ValidadorDeRegra.Novo()
+                .Quando(valor < 1, Resource.ValorInvalido)
+                .DispararExcecaoSeExistir();
+
             Valor = valor;
         }
 

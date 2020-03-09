@@ -6,9 +6,9 @@ using Bogus;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Application.Domain.Tests._Util;
 using Application.Domain.Tests._Builders;
-using Application.Domain.ValueObjects;
+using Application.Domain.Cursos;
 
-namespace Application.Domain.Tests.Curso
+namespace Application.Domain.Tests.Cursos
 {
     public class ArmazenadorDeCursosTeste
     {

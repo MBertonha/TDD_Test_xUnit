@@ -1,0 +1,55 @@
+﻿using Application.Domain._Base;
+using Application.Domain.Alunos;
+using Application.Domain.Cursos;
+
+namespace Application.Domain.Matriculas
+{
+    public class Matricula : Entidade
+    {
+        public Aluno Aluno { get; private set; }
+        public CursoObj Curso { get; private set; }
+        public double ValorPago { get; private set; }
+        public bool TemDesconto { get; private set; }
+        public double NotaDoAluno { get; private set; }
+        public bool CursoConcluido { get; private set; }
+        public bool Cancelada { get; private set; }
+
+        private Matricula() { }
+
+        public Matricula(Aluno aluno, CursoObj curso, double valorPago)
+        {
+            ValidadorDeRegra.Novo()
+                .Quando(aluno == null, Resource.AlunoInvalido)
+                .Quando(curso == null, Resource.CursoInvalido)
+                .Quando(valorPago < 1, Resource.ValorInvalido)
+                .Quando(curso != null && valorPago > curso.Valor, Resource.ValorPagoMaiorQueValorDoCurso)
+                .Quando(aluno != null && curso != null && aluno.PublicoAlvo.GetHashCode() != curso.PublicoAlvo.GetHashCode(), Resource.PublicosAlvoDiferentes)
+                .DispararExcecaoSeExistir();
+
+            Aluno = aluno;
+            Curso = curso;
+            ValorPago = valorPago;
+            TemDesconto = valorPago < Curso.Valor;
+        }
+
+        public void InformarNota(double notaDoAluno)
+        {
+            ValidadorDeRegra.Novo()
+                .Quando(notaDoAluno < 0 || notaDoAluno > 10, Resource.NotaDoAlunoInvalida)
+                .Quando(Cancelada, Resource.MatriculaCancelada)
+                .DispararExcecaoSeExistir();
+
+            NotaDoAluno = notaDoAluno;
+            CursoConcluido = true;
+        }
+
+        public void Cancelar()
+        {
+            ValidadorDeRegra.Novo()
+                .Quando(CursoConcluido, Resource.MatriculaConcluida)
+                .DispararExcecaoSeExistir();
+
+            Cancelada = true;
+        }
+    }
+}

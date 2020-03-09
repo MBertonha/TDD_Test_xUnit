@@ -1,5 +1,5 @@
 using System;
-using Application.Domain.Enum;
+using Application.Domain.PublicosAlvo;
 using Application.Domain.Tests._Builders;
 using Application.Domain.Tests._Util;
 using Bogus;
@@ -8,7 +8,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Application.Domain.Tests {
+namespace Application.Domain.Tests.Cursos
+{
     public class CursoTeste : IDisposable {
         private readonly ITestOutputHelper _output;
         private readonly string _nome;
