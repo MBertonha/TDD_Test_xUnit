@@ -8,6 +8,12 @@ namespace Application.Domain.Cursos
     {
         private readonly ICursoRepositorio _cursoRepositorio;
         private readonly IConversorDePublicoAlvo _conversorDePublicoAlvo;
+        private ICursoRepositorio @object;
+
+        public ArmazenadorDeCurso(ICursoRepositorio cursoRepositorio)
+        {
+            _cursoRepositorio = cursoRepositorio;
+        }
 
         public ArmazenadorDeCurso(ICursoRepositorio cursoRepositorio, IConversorDePublicoAlvo conversorDePublicoAlvo)
         {
