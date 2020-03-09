@@ -2,6 +2,7 @@
 using Application.Domain;
 using Application.Domain._Base;
 using Application.Domain.Cursos;
+using ApplicationApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CursoOnline.Web.Controllers {
@@ -25,10 +26,10 @@ namespace CursoOnline.Web.Controllers {
                         PublicoAlvo = c.PublicoAlvo.ToString (),
                         Valor = c.Valor
                 });
-                return View ("Index", PaginatedList<CursoParaListagemDto>.Create (dtos, Request));
+                return View("Index", PaginatedList<CursoParaListagemDto>.Create(dtos, 1, dtos.Count()));
             }
 
-            return View ("Index", PaginatedList<CursoParaListagemDto>.Create (null, Request));
+            return View ("Index", PaginatedList<CursoParaListagemDto>.Create (null, 0, 0));
         }
 
         public IActionResult Editar (int id) {

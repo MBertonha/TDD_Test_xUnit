@@ -2,6 +2,7 @@
 using Application.Domain._Base;
 using Microsoft.AspNetCore.Mvc;
 using Application.Domain.Alunos;
+using System.Collections.Generic;
 
 namespace CursoOnline.Web.Controllers
 {
